@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Login / Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 300px;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .login-container input:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 5px #667eea;
+        }
+
+        .login-container button {
+            width: 45%;
+            padding: 12px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: white;
+        }
+
+        .login-container button[value="login"] {
+            background: #667eea;
+        }
+
+        .login-container button[value="login"]:hover {
+            background: #5563d6;
+        }
+
+        .login-container button[value="signup"] {
+            background: #764ba2;
+        }
+
+        .login-container button[value="signup"]:hover {
+            background: #633d91;
+        }
+    </style>
+</head>
+<body>  
+    <div class="login-container">
+        <h2>Login / Sign up</h2>
+        <form method="post">
+            <input type="text" name="username" placeholder="Kullanıcı Adı" required><br>
+            <input type="password" name="password" placeholder="Şifre" required><br>
+            <button type="submit" name="action" value="login">Login</button>
+            <button type="submit" name="action" value="signup">Sign Up</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>MyChat</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #d1d7db;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+        }
+        /* Sol Menü */
+        .sidebar {
+            width: 250px;
+            background: #202c33;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar h3 {
+            text-align: center;
+            padding: 15px;
+            background: #111b21;
+            margin: 0;
+        }
+        .friends {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .friend-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            text-decoration: none;
+            color: white;
+            border-bottom: 1px solid #2f3b43;
+            transition: 0.2s;
+        }
+        .friend-item:hover,
+        .friend-item.active {
+            background: #2a3942;
+        }
+        .friend-avatar {
+            background: #00a884;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .add-friend {
+            padding: 10px;
+            background: #111b21;
+            border-top: 1px solid #2f3b43;
+        }
+        .add-friend input {
+            width: 70%;
+            padding: 7px;
+            border-radius: 15px;
+            border: none;
+            outline: none;
+        }
+        .add-friend button {
+            padding: 7px 10px;
+            border: none;
+            border-radius: 15px;
+            background: #00a884;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        /* Sohbet Alanı */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #efeae2;
+        }
+        .header {
+            background: #202c33;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        .header span {
+            background: #00a884;
+            border-radius: 50%;
+            padding: 8px 12px;
+            margin-right: 10px;
+        }
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .msg {
+            margin: 5px 0;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 60%;
+            word-wrap: break-word;
+            font-size: 14px;
+        }
+        .sent {
+            background: #d9fdd3;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        .received {
+            background: white;
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+        }
+        .input-box {
+            display: flex;
+            padding: 10px;
+            background: #f0f2f5;
+            border-top: 1px solid #ddd;
+        }
+        .input-box input[type="text"] {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            margin-right: 10px;
+        }
+        .input-box button {
+            background: #00a884;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            padding: 12px 15px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sol Menü -->
+    <div class="sidebar">
+        <h3>Arkadaşlar</h3>
+        <div class="friends">
+            {% for f in friends %}
+                <a href="{{ url_for('chat', friend=f) }}" 
+                   class="friend-item {% if f == selected_friend %}active{% endif %}">
+                    <div class="friend-avatar">{{ f[0]|upper }}</div>
+                    <div>{{ f }}</div>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="add-friend">
+            <form method="post">
+                <input type="text" name="new_friend" placeholder="Arkadaş ekle" required>
+                <button type="submit">+</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sohbet Alanı -->
+    <div class="chat-container">
+        <div class="header">
+            {% if selected_friend %}
+                <span>{{ selected_friend[0]|upper }}</span> {{ selected_friend }} ile Sohbet
+            {% else %}
+                Bir arkadaş seç
+            {% endif %}
+        </div>
+
+        <div class="messages" id="messages">
+            {% for msg in messages %}
+                {% if msg.from == user %}
+                    <div class="msg sent">{{ msg.msg }}</div>
+                {% elif msg.to == user %}
+                    <div class="msg received">{{ msg.msg }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% if selected_friend %}
+        <form method="post" class="input-box">
+            <input type="text" name="message" placeholder="Mesaj yaz..." required>
+            <button type="submit">➤</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <script>
+        // Auto-scroll
+        var msgBox = document.getElementById("messages");
+        if (msgBox) msgBox.scrollTop = msgBox.scrollHeight;
+    </script>
+</body>
+</html>
