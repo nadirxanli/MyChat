@@ -1,0 +1,27 @@
+h1{
+    color: blue;
+    font-size: 200px;
+}
+h2{
+    color: blue;
+    font-size: 100px;   
+} 
+.Basliq{
+    justify-items: center;
+}
+.Navbar{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 500px;
+    padding-right: 500px;
+    margin-top: 3rem;
+    justify-self: center;
+    background-color: rgb(187, 177, 177);
+    border-radius: 50px;
+}
+.Navbar a button{
+    height: 75px; 
+    width: 150px;
+    border-radius: 50px;       
+    font-size: 30px;    
+}
